@@ -6,7 +6,7 @@ import { globalCSS } from '../lib/style'
 
 export const Layout: FC = (props) => {
   return (
-    <html class={globalCSS}>
+    <html class={globalCSS} lang="ja">
       <Head metadata={props.metadata} />
       <Header {...props} />
       <main>{props.children}</main>
