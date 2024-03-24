@@ -5,6 +5,7 @@ import { getPosts } from './lib/post'
 import { serveStatic } from '@hono/node-server/serve-static'
 import { Layout } from './components/Layout'
 import { baseURL, siteName } from './lib/constants'
+import { jsxRenderer } from 'hono/jsx-renderer'
 
 const app = new Hono()
 
@@ -25,6 +26,16 @@ let metadata: Metadata = {
 }
 
 app.use('*', serveStatic({ root: 'public' }))
+
+app.all(
+  '*',
+  jsxRenderer(
+    ({ children }) => {
+      return <>{children}</>
+    },
+    { docType: '<!DOCTYPE html>' }
+  )
+)
 
 const postListCSS = css`
   ul {
